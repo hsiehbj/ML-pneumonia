@@ -10,7 +10,13 @@ st.title('Pneumonia prediction')
 # Create file uploader 
 img_data = st.file_uploader(label='Load image for recognition', type=['png', 'jpg', 'jpeg'])
 
-model = tf.keras.models.load_model("pneumonia_model_fine_tune")
+@st.cache(allow_output_mutation = True)
+def load_model(model_name):
+    model = tf.keras.models.load_model(model_name)
+    return (model)
+
+
+model = load_model("pneumonia_model_fine_tune")
 
 if img_data is not None:
     
